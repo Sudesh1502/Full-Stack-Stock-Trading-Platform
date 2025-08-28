@@ -6,7 +6,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 function SupportPage() {
   return (
     <>
-      <FaCirclePlus/>
+      
       <Hero/>
       <RaiseTicket/>
     </>

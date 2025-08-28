@@ -2,23 +2,40 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  
 }
 
-
-
-
-
-.nav-link{
+.nav-link {
   margin-left: 20px !important;
 }
 
-.nav-item{
+.nav-item {
   margin-left: 10px !important;
 }
-.footlinks{
+.footlinks {
   list-style: none;
   text-decoration: none;
   font-size: 11px;
+}
+
+#supportHero {
+  background-color: rgb(56, 126, 209);
+  color: white;
+}
+
+#supportHero a {
+  color: white;
+}
+
+#supportWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 150px;
+}
+
+#supportHero input {
+  padding: 20px 50px;
+  width: 100%;
+  font-size: 20px;
+  border-radius: 10px;
+  border: none;
 }
