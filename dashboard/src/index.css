@@ -693,6 +693,12 @@ hr {
   align-items: center;
 }
 
+.itemInfo {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 .item-info > * {
   margin-right: 8px;
 }
