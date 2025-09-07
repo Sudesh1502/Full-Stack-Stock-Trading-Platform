@@ -8,14 +8,14 @@ import "./BuyActionWindow.css";
 
 const BuyActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
-  const [stockPrice, setStockPrice] = useState(0.0);
+  const [stockPrice, setStockPrice] = useState();
 
   // ✅ Pull values from context
   const { closeBuyWindow } = useContext(GeneralContext);
 
   const handleBuyClick = async () => {
     try {
-      await axios.post("http://localhost:3002/newOrder", {
+      await axios.post("http://localhost:3002/newOrders", {
         name: uid,
         qty: stockQuantity,
         price: stockPrice,
@@ -52,7 +52,6 @@ const BuyActionWindow = ({ uid }) => {
               type="number"
               name="price"
               id="price"
-              step="0.05"
               onChange={(e) => setStockPrice(Number(e.target.value))}
               value={stockPrice}
             />

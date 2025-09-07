@@ -5,7 +5,9 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const  HoldingsModel  = require('./Models/HoldingsModel');
-const  PositionsModel  = require('./Models/PostionsModel');
+const  PositionsModel  = require('./Models/PostionsModel'); 
+const  OrdersModel  = require('./Models/OrdersModel'); 
+const { pre } = require("./Schema/HoldingsSchema");
 
 const app = express();
 
@@ -70,6 +72,27 @@ app.get("/allHoldings", async (req,res)=>{
 app.get("/allPositions", async (req,res)=>{
     const positions = await PositionsModel.find({});
     res.json(positions);
+})
+
+app.post("/newOrders", async (req,res)=>{
+    const { name, qty, price, mode } = req.body;
+
+    // 1. Save order
+    await OrdersModel.create({ name, qty, price, mode });
+
+    // 2. Always add a new entry in holdings if BUY
+    if (mode === "BUY") {
+      await HoldingsModel.create({
+        name,
+        qty,
+        avg: price,
+        price,
+        net: "+0.00%", // default for now
+        day: "+0.00%", // default for now
+      });
+    }
+
+    res.send("Order Purchased");
 })
 
 
