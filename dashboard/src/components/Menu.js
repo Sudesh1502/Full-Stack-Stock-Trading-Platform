@@ -1,9 +1,11 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu]=useState(0);
   const[isMenuDropDownOpen, setIsMenuDropDownOpen]=useState(false);
+  const navigate = useNavigate();
 
   const handleMenuClick = (index) => {
     setSelectedMenu(index);
@@ -12,6 +14,16 @@ const Menu = () => {
   const handleDropDownClick = () => {
     setIsMenuDropDownOpen(!isMenuDropDownOpen);
   }
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:3002/logout", {}, { withCredentials: true });
+      // redirect to login page
+      window.location.href = "http://localhost:5173/signUp";;
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   const ActiveClassMenu = "menu selected";
   const ClassMenu = "menu";
@@ -43,6 +55,11 @@ const Menu = () => {
         <div className="profile" onClick={handleDropDownClick}>
           <div className="avatar">ZU</div>
           <p className="username">USERID</p>
+          {isMenuDropDownOpen && (
+            <div className="dropdown">
+              <button onClick={handleLogout}>Logout</button>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -89,6 +89,27 @@ app.get("/allOrders", jwtAuth, async (req, res) => {
   res.json(orders);
 })
 
+app.post("/newOrders", jwtAuth,  async (req, res) => {
+  const { name, qty, price, mode } = req.body;
+
+  // 1. Save order
+  await OrdersModel.create({ name, qty, price, mode });
+
+  // 2. Always add a new entry in holdings if BUY
+  if (mode === "BUY") {
+    await HoldingsModel.create({
+      name,
+      qty,
+      avg: price,
+      price,
+      net: "+0.00%", // default for now
+      day: "+0.00%", // default for now
+    });
+  }
+
+  res.send("Order Purchased");
+})
+
 app.post("/signUp", async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -138,26 +159,16 @@ app.post("/signIn", async (req, res) => {
 
 })
 
-app.post("/newOrders", jwtAuth,  async (req, res) => {
-  const { name, qty, price, mode } = req.body;
+app.post("/logout", (req, res) => {
+  res.clearCookie("authToken", {
+    httpOnly: true,
+    secure: false, // set true in production (HTTPS)
+    sameSite: "lax"
+  });
+  res.json({ message: "Logged out successfully" });
+});
 
-  // 1. Save order
-  await OrdersModel.create({ name, qty, price, mode });
 
-  // 2. Always add a new entry in holdings if BUY
-  if (mode === "BUY") {
-    await HoldingsModel.create({
-      name,
-      qty,
-      avg: price,
-      price,
-      net: "+0.00%", // default for now
-      day: "+0.00%", // default for now
-    });
-  }
-
-  res.send("Order Purchased");
-})
 
 
 app.listen(port, () => {
