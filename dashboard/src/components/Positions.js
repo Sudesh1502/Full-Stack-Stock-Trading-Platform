@@ -6,13 +6,26 @@ import axios from "axios";
 
 const Positions = () => {
 
-const [allPositions, setAllpositions] = useState([]);
+  const [allPositions, setAllpositions] = useState([]);
+  
+  const [error, setError] = useState("");
+   useEffect(() => {
+    const fetchPositions = async () => {
+     
 
-  useEffect(()=>{
-    axios.get("http://localhost:3002/allPositions").then(res=>{
-      setAllpositions(res.data);
-    })
-  },[])
+      try {
+        const response = await axios.get("http://localhost:3002/allPositions",{
+    withCredentials: true
+  });
+
+        setAllpositions(response.data); // assuming backend returns an array
+      } catch (err) {
+        setError("Failed to fetch positions");
+      }
+    };
+
+    fetchPositions();
+  }, []);
 
   return (
     <>

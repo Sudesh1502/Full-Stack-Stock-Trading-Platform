@@ -1,24 +1,34 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-const  HoldingsModel  = require('./Models/HoldingsModel');
-const  PositionsModel  = require('./Models/PostionsModel'); 
-const  OrdersModel  = require('./Models/OrdersModel'); 
-const { pre } = require("./Schema/HoldingsSchema");
-
+const HoldingsModel = require('./Models/HoldingsModel');
+const PositionsModel = require('./Models/PostionsModel');
+const OrdersModel = require('./Models/OrdersModel');
+const UserModel = require("./Models/UserModel");
+const jwtAuth = require("./middlewares/jwtAuth");
+const cookieParser = require('cookie-parser');
 const app = express();
 
 
 //middlewares
-app.use(cors());
+
+app.use(cors({
+  origin: (origin, callback) => {
+    callback(null, origin); // reflect the request origin
+  },
+  credentials: true
+}));
+
 app.use(bodyParser.json());
 
-
+app.use(cookieParser()); 
 const port = process.env.PORT || 3002
 const dbUrl = process.env.MONGO_URL;
+const key = process.env.SECRET_KEY;
 
 
 // dummy dat adding
@@ -64,40 +74,94 @@ const dbUrl = process.env.MONGO_URL;
 // })
 
 
-app.get("/allHoldings", async (req,res)=>{
-    const holdings = await HoldingsModel.find({});
-    res.json(holdings);
+app.get("/allHoldings", jwtAuth , async (req, res) => {
+  const holdings = await HoldingsModel.find({});
+  res.json(holdings);
 })
 
-app.get("/allPositions", async (req,res)=>{
-    const positions = await PositionsModel.find({});
-    res.json(positions);
+app.get("/allPositions", jwtAuth, async (req, res) => {
+  const positions = await PositionsModel.find({});
+  res.json(positions);
 })
 
-app.post("/newOrders", async (req,res)=>{
-    const { name, qty, price, mode } = req.body;
+app.get("/allOrders", jwtAuth, async (req, res) => {
+  const orders = await OrdersModel.find({});
+  res.json(orders);
+})
 
-    // 1. Save order
-    await OrdersModel.create({ name, qty, price, mode });
+app.post("/signUp", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const existingUser = await UserModel.findOne({ email });
 
-    // 2. Always add a new entry in holdings if BUY
-    if (mode === "BUY") {
-      await HoldingsModel.create({
-        name,
-        qty,
-        avg: price,
-        price,
-        net: "+0.00%", // default for now
-        day: "+0.00%", // default for now
-      });
+    if (existingUser && existingUser.password === password) {
+      const token = jwt.sign({
+        userId: existingUser._id,
+        email: existingUser.email,
+      },
+        key,
+        {
+          expiresIn: "4h"
+        })
+
+        res.cookie("authToken", token, {
+      httpOnly: true,
+      secure: false, // set true if using https
+      sameSite: "lax"
+    });
+      return res.status(200).json({ message: "Login Successful !"});
+    } else {
+      return res.status(400).send({ message: "Invalid credentials" });
     }
 
-    res.send("Order Purchased");
+  } catch (error) {
+    res.send({ message: "Something went wrong!!, " + error.message });
+  }
+})
+
+app.post("/signIn", async (req, res) => {
+  const { name, email, password } = req.body;
+  try {
+    const existingUser = await UserModel.findOne({ email });
+
+    if (existingUser) {
+      return res.send({ message: "Email Already Exists" });
+    }
+
+    await UserModel.create({ name, email, password });
+
+    res.status(201).send({ message: "User Registered Successfully!" });
+  } catch (error) {
+    res.send({ message: "Something went wrong!!, " + error.message });
+  }
+
+
+})
+
+app.post("/newOrders", jwtAuth,  async (req, res) => {
+  const { name, qty, price, mode } = req.body;
+
+  // 1. Save order
+  await OrdersModel.create({ name, qty, price, mode });
+
+  // 2. Always add a new entry in holdings if BUY
+  if (mode === "BUY") {
+    await HoldingsModel.create({
+      name,
+      qty,
+      avg: price,
+      price,
+      net: "+0.00%", // default for now
+      day: "+0.00%", // default for now
+    });
+  }
+
+  res.send("Order Purchased");
 })
 
 
 app.listen(port, () => {
-    console.log("Sever is listening on port 3002");
-    mongoose.connect(dbUrl)
-    console.log("DB Connected");
+  console.log("Sever is listening on port 3002");
+  mongoose.connect(dbUrl)
+  console.log("DB Connected");
 })

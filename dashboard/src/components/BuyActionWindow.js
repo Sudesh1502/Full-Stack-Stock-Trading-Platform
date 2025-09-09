@@ -11,7 +11,8 @@ const BuyActionWindow = ({ uid }) => {
   const [stockPrice, setStockPrice] = useState();
 
   // ✅ Pull values from context
-  const { closeBuyWindow } = useContext(GeneralContext);
+        
+  const { closeBuyWindow, closeSellWindow, isSellWindowOpen} = useContext(GeneralContext);
 
   const handleBuyClick = async () => {
     try {
@@ -20,7 +21,7 @@ const BuyActionWindow = ({ uid }) => {
         qty: stockQuantity,
         price: stockPrice,
         mode: "BUY",
-      });
+      }, { withCredentials: true });
     } catch (err) {
       console.error("Error placing order:", err);
     }
@@ -28,8 +29,24 @@ const BuyActionWindow = ({ uid }) => {
     closeBuyWindow();
   };
 
+  const handleSellClick = async () => {
+    try {
+      await axios.post("http://localhost:3002/newOrders", {
+        name: uid,
+        qty: stockQuantity,
+        price: stockPrice,
+        mode: "Sell",
+      }, { withCredentials: true });
+    } catch (err) {
+      console.error("Error placing order:", err);
+    }
+
+    closeSellWindow();
+  };
+
   const handleCancelClick = () => {
     closeBuyWindow();
+    closeSellWindow();
   };
 
   return (
@@ -62,9 +79,13 @@ const BuyActionWindow = ({ uid }) => {
       <div className="buttons">
         <span>Margin required ₹140.65</span>
         <div>
-          <Link className="btn btn-blue" onClick={handleBuyClick}>
+          {!isSellWindowOpen &&<Link className="btn btn-blue" onClick={handleBuyClick}>
             Buy
-          </Link>
+          </Link>}
+          {isSellWindowOpen && <Link className="btn btn-blue" onClick={handleSellClick}>
+            Sell
+          </Link>}
+          
           <Link to="" className="btn btn-grey" onClick={handleCancelClick}>
             Cancel
           </Link>
