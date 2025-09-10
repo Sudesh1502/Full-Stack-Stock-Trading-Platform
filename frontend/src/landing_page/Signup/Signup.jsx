@@ -72,7 +72,7 @@ function Signup() {
         
 
         // Redirect to port 3000
-        window.location.href = "http://localhost:3000";
+        window.location.href = "https://full-stack-stock-trading-platform-1-ec1s.onrender.com/";
       
     } catch (err) {
       if (err.response) {
