@@ -6,7 +6,7 @@ const Orders = () => {
   const [allOrders, setAllOrders] = useState([]);
   useEffect(() => {
     axios.get("https://full-stack-stock-trading-platform-of8o.onrender.com/allOrders", { withCredentials: true }).then(res => {
-      if(res.data.message == "Unauthorized access!"){
+      if(res.data.message === "Unauthorized access!"){
         setAllOrders([]);
         window.location.href="https://full-stack-stock-trading-platform-landing.onrender.com/signup"
         

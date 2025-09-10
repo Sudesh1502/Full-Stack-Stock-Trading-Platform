@@ -18,7 +18,7 @@ const Positions = () => {
     withCredentials: true
   });
 
-  if(response.data.message == "Unauthorized access!"){
+  if(response.data.message === "Unauthorized access!"){
         window.location.href="https://full-stack-stock-trading-platform-landing.onrender.com/signup"
         setAllpositions([]); 
       }else{

@@ -11,7 +11,7 @@ const Holdings = () => {
 
   useEffect(()=>{
     axios.get("https://full-stack-stock-trading-platform-of8o.onrender.com/allHoldings", { withCredentials: true }).then(res=>{
-      if(res.data.message == "Unauthorized access!"){
+      if(res.data.message === "Unauthorized access!"){
         window.location.href="https://full-stack-stock-trading-platform-landing.onrender.com/signup"
         setAllHoldings([]);
       }else{
