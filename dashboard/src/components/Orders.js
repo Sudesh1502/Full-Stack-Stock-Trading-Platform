@@ -6,7 +6,13 @@ const Orders = () => {
   const [allOrders, setAllOrders] = useState([]);
   useEffect(() => {
     axios.get("http://localhost:3002/allOrders", { withCredentials: true }).then(res => {
-      setAllOrders(res.data);
+      if(res.data.message == "Unauthorized access!"){
+        window.location.href="http://localhost:5173/signup"
+        setAllOrders([]);
+      } else{
+        setAllOrders(res.data);
+      }
+      
     })
   }, [])
   return (
@@ -30,7 +36,7 @@ const Orders = () => {
           </thead>
           <tbody>
 
-            {allOrders.map((stock, index) => {
+            {allOrders?.map((stock, index) => {
 
 
               return (

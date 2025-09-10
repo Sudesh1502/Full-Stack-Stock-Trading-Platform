@@ -5,6 +5,7 @@ import axios from "axios";
 import GeneralContext from "./GeneralContext";
 
 import "./BuyActionWindow.css";
+import {toast} from 'react-hot-toast'
 
 const BuyActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
@@ -24,9 +25,11 @@ const BuyActionWindow = ({ uid }) => {
       }, { withCredentials: true });
     } catch (err) {
       console.error("Error placing order:", err);
+       toast.error("failed");
     }
 
     closeBuyWindow();
+     toast.success("Product Purchased");
   };
 
   const handleSellClick = async () => {
@@ -42,11 +45,13 @@ const BuyActionWindow = ({ uid }) => {
     }
 
     closeSellWindow();
+    toast.success("Product Selled");
   };
 
   const handleCancelClick = () => {
     closeBuyWindow();
     closeSellWindow();
+     toast.error("Canceled!");
   };
 
   return (

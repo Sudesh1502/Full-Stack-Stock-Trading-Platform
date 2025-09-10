@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import Navbar from "../Navbar/Navbar";
 function Signup() {
   const [formData, setFormData] = useState({
     name: "",
@@ -83,7 +83,8 @@ function Signup() {
     }
   };
 
-  return (
+  return (<>
+  <Navbar/>
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
@@ -225,6 +226,7 @@ function Signup() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

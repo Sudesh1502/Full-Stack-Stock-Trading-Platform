@@ -11,7 +11,13 @@ const Holdings = () => {
 
   useEffect(()=>{
     axios.get("http://localhost:3002/allHoldings", { withCredentials: true }).then(res=>{
-      setAllHoldings(res.data);
+      if(res.data.message == "Unauthorized access!"){
+        window.location.href="http://localhost:5173/signup"
+        setAllHoldings([]);
+      }else{
+        setAllHoldings(res.data);
+      }
+      
     })
   },[])
 

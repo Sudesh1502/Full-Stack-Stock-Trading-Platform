@@ -18,7 +18,13 @@ const Positions = () => {
     withCredentials: true
   });
 
-        setAllpositions(response.data); // assuming backend returns an array
+  if(response.data.message == "Unauthorized access!"){
+        window.location.href="http://localhost:5173/signup"
+        setAllpositions([]); 
+      }else{
+        setAllpositions(response.data); 
+      }
+// assuming backend returns an array
       } catch (err) {
         setError("Failed to fetch positions");
       }

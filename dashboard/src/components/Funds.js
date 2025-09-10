@@ -1,13 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const Funds = () => {
   return (
     <>
       <div className="funds">
         <p>Instant, zero-cost fund transfers with UPI </p>
-        <Link className="btn btn-green">Add funds</Link>
-        <Link className="btn btn-blue">Withdraw</Link>
+        <Link className="btn btn-green" onClick={() => {
+          toast("Under Maintainance!", {
+            style: {
+              background: "#FF9800", // orange
+              color: "#fff",
+            },
+            iconTheme: {
+              primary: "#fff",
+              secondary: "#FF9800",
+            },
+          });
+        }}>Add funds</Link>
+        <Link className="btn btn-blue" onClick={() => {
+          toast("Under Maintainance!", {
+            style: {
+              background: "#FF9800", // orange
+              color: "#fff",
+            },
+            iconTheme: {
+              primary: "#fff",
+              secondary: "#FF9800",
+            },
+          });
+        }}>Withdraw</Link>
       </div>
 
       <div className="row">
@@ -77,7 +100,9 @@ const Funds = () => {
         <div className="col">
           <div className="commodity">
             <p>You don't have a commodity account</p>
-            <Link className="btn btn-blue">Open Account</Link>
+            <Link className="btn btn-blue" onClick={()=>{
+              window.location.href="http://localhost:5173/signup"
+            }}>Open Account</Link>
           </div>
         </div>
       </div>
