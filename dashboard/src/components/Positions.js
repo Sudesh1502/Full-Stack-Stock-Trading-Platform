@@ -14,7 +14,7 @@ const Positions = () => {
      
 
       try {
-        const response = await axios.get("http://localhost:3002/allPositions",{
+        const response = await axios.get("https://full-stack-stock-trading-platform-of8o.onrender.com/allPositions",{
     withCredentials: true
   });
 

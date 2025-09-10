@@ -17,7 +17,7 @@ const Menu = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:3002/logout", {}, { withCredentials: true });
+      await axios.post("https://full-stack-stock-trading-platform-of8o.onrender.com/logout", {}, { withCredentials: true });
       // redirect to login page
       window.location.href = "http://localhost:5173/signUp";;
     } catch (error) {

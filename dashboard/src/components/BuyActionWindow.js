@@ -17,7 +17,7 @@ const BuyActionWindow = ({ uid }) => {
 
   const handleBuyClick = async () => {
     try {
-      await axios.post("http://localhost:3002/newOrders", {
+      await axios.post("https://full-stack-stock-trading-platform-of8o.onrender.com/newOrders", {
         name: uid,
         qty: stockQuantity,
         price: stockPrice,
@@ -34,7 +34,7 @@ const BuyActionWindow = ({ uid }) => {
 
   const handleSellClick = async () => {
     try {
-      await axios.post("http://localhost:3002/newOrders", {
+      await axios.post("https://full-stack-stock-trading-platform-of8o.onrender.com/newOrders", {
         name: uid,
         qty: stockQuantity,
         price: stockPrice,

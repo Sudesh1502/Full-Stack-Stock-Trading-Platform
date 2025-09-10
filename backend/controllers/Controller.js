@@ -64,7 +64,7 @@ class Controller {
 
                 res.cookie("authToken", token, {
                     httpOnly: true,
-                    secure: false, // set true if using https
+                    secure: true, // set true if using https
                     sameSite: "lax"
                 });
                 return res.status(200).json({ message: "Login Successful !" });
@@ -101,7 +101,7 @@ class Controller {
     static async logout(req, res) {
         res.clearCookie("authToken", {
             httpOnly: true,
-            secure: false, // set true in production (HTTPS)
+            secure: true,
             sameSite: "lax"
         });
         res.json({ message: "Logged out successfully" });

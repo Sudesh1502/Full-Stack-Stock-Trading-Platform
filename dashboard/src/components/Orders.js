@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Orders = () => {
   const [allOrders, setAllOrders] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3002/allOrders", { withCredentials: true }).then(res => {
+    axios.get("https://full-stack-stock-trading-platform-of8o.onrender.com/allOrders", { withCredentials: true }).then(res => {
       if(res.data.message == "Unauthorized access!"){
         window.location.href="http://localhost:5173/signup"
         setAllOrders([]);

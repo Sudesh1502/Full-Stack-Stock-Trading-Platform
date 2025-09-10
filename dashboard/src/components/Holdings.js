@@ -10,7 +10,7 @@ const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(()=>{
-    axios.get("http://localhost:3002/allHoldings", { withCredentials: true }).then(res=>{
+    axios.get("https://full-stack-stock-trading-platform-of8o.onrender.com/allHoldings", { withCredentials: true }).then(res=>{
       if(res.data.message == "Unauthorized access!"){
         window.location.href="http://localhost:5173/signup"
         setAllHoldings([]);

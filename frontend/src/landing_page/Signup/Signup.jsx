@@ -42,7 +42,7 @@ function Signup() {
 
     try {
       const { confirmPassword, ...dataToSend } = formData;
-      const response = await axios.post("http://localhost:3002/signIn", dataToSend);
+      const response = await axios.post("https://full-stack-stock-trading-platform-of8o.onrender.com/signIn", dataToSend);
 
       if (response.status === 200) {
         alert("Signup successful! Please login.");
@@ -62,7 +62,7 @@ function Signup() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3002/signUp", loginData, { withCredentials: true });
+      const response = await axios.post("https://full-stack-stock-trading-platform-of8o.onrender.com/signUp", loginData, { withCredentials: true });
 
       
         

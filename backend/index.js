@@ -12,7 +12,7 @@ const dbUrl = process.env.MONGO_URL;
 
 app.use(cors({
   origin: (origin, callback) => {
-    callback(null, origin);
+    callback(null, origin|| true);
   },
   credentials: true
 }));
