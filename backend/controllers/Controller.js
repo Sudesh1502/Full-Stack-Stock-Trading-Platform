@@ -65,7 +65,7 @@ class Controller {
                 res.cookie("authToken", token, {
                     httpOnly: true,
                     secure: true, // set true if using https
-                    sameSite: "lax"
+                    sameSite: "None"
                 });
                 return res.status(200).json({ message: "Login Successful !" });
             } else {
@@ -102,7 +102,7 @@ class Controller {
         res.clearCookie("authToken", {
             httpOnly: true,
             secure: true,
-            sameSite: "lax"
+            sameSite: "None"
         });
         res.json({ message: "Logged out successfully" });
     }

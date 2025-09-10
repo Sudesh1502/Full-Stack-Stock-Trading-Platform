@@ -7,8 +7,9 @@ const Orders = () => {
   useEffect(() => {
     axios.get("https://full-stack-stock-trading-platform-of8o.onrender.com/allOrders", { withCredentials: true }).then(res => {
       if(res.data.message == "Unauthorized access!"){
-        window.location.href="http://localhost:5173/signup"
         setAllOrders([]);
+        window.location.href="http://localhost:5173/signup"
+        
       } else{
         setAllOrders(res.data);
       }
