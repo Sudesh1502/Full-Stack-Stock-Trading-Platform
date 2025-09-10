@@ -4,7 +4,7 @@
   "description": "full-stack-stock-trading-platform",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "author": "Sudesh Mhamankar",
   "license": "ISC",
