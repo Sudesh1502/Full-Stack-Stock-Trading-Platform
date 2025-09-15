@@ -101,7 +101,7 @@ const Funds = () => {
           <div className="commodity">
             <p>You don't have a commodity account</p>
             <Link className="btn btn-blue" onClick={()=>{
-              window.location.href="https://full-stack-stock-trading-platform-landing.onrender.com/signup"
+              window.location.href="https://full-stack-stock-trading-platformland.netlify.app/signup"
             }}>Open Account</Link>
           </div>
         </div>

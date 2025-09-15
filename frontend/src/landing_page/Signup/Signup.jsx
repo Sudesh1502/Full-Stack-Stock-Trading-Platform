@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
+import { useLoader } from "../LoaderContext.jsx";
 function Signup() {
+  const {setLoading} = useLoader();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,6 +33,7 @@ function Signup() {
 
   // Signup form submit → POST /signIn
   const handleSignup = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -55,10 +58,12 @@ function Signup() {
         setError("Error connecting to server!");
       }
     }
+    setLoading(false);
   };
 
   // Login form submit → POST /signUp
   const handleLogin = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     try {
@@ -72,7 +77,7 @@ function Signup() {
         
 
         // Redirect to port 3000
-        window.location.href = "https://full-stack-stock-trading-platform-1-ec1s.onrender.com/";
+        window.location.href = "https://full-stack-stock-trading-platform1502.netlify.app";
       
     } catch (err) {
       if (err.response) {
@@ -81,6 +86,7 @@ function Signup() {
         setError("Error connecting to server!");
       }
     }
+    setLoading(false);
   };
 
   return (<>

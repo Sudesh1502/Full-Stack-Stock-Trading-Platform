@@ -19,7 +19,7 @@ const Menu = () => {
     try {
       await axios.post("https://full-stack-stock-trading-platform-of8o.onrender.com/logout", {}, { withCredentials: true });
       // redirect to login page
-      window.location.href = "https://full-stack-stock-trading-platform-landing.onrender.com/signUp";;
+      window.location.href = "https://full-stack-stock-trading-platformland.netlify.app/signup";;
     } catch (error) {
       console.error("Logout failed:", error);
     }

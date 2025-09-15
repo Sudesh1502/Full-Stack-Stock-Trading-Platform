@@ -16,6 +16,7 @@ import SupportPage from "./landing_page/support/SupportPage/SupportPage.jsx";
 import NotFound from "./landing_page/NotFound.jsx";
 import Layout from "./landing_page/Layout.jsx"; 
 import App from "./App.jsx";
+import { LoaderProvider } from "./landing_page/LoaderContext.jsx";
 
 // Define routes
 const router = createBrowserRouter([
@@ -35,6 +36,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <LoaderProvider>
     <RouterProvider router={router} />
+    </LoaderProvider>
   </StrictMode>
 );

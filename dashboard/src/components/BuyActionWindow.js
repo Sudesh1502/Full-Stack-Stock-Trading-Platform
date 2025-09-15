@@ -6,10 +6,13 @@ import GeneralContext from "./GeneralContext";
 
 import "./BuyActionWindow.css";
 import {toast} from 'react-hot-toast'
+import { useLoader } from "./LoaderContext";
+
 
 const BuyActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState();
+  const {setLoading} = useLoader();
 
   // ✅ Pull values from context
         
@@ -17,6 +20,7 @@ const BuyActionWindow = ({ uid }) => {
 
   const handleBuyClick = async () => {
     try {
+      setLoading(true);
       await axios.post("https://full-stack-stock-trading-platform-of8o.onrender.com/newOrders", {
         name: uid,
         qty: stockQuantity,
@@ -30,10 +34,13 @@ const BuyActionWindow = ({ uid }) => {
 
     closeBuyWindow();
      toast.success("Product Purchased");
+     setLoading(false);
   };
 
   const handleSellClick = async () => {
+    setLoading(true);
     try {
+      
       await axios.post("https://full-stack-stock-trading-platform-of8o.onrender.com/newOrders", {
         name: uid,
         qty: stockQuantity,
@@ -46,6 +53,7 @@ const BuyActionWindow = ({ uid }) => {
 
     closeSellWindow();
     toast.success("Product Selled");
+    setLoading(false);
   };
 
   const handleCancelClick = () => {

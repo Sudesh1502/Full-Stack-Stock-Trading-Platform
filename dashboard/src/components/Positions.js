@@ -19,7 +19,7 @@ const Positions = () => {
   });
 
   if(response.data.message === "Unauthorized access!"){
-        window.location.href="https://full-stack-stock-trading-platform-landing.onrender.com/signup"
+        window.location.href="https://full-stack-stock-trading-platformland.netlify.app/signup"
         setAllpositions([]); 
       }else{
         setAllpositions(response.data); 

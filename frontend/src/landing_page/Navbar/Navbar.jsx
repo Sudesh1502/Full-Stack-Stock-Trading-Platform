@@ -30,6 +30,7 @@ function Navbar() {
             style={{ width: "200px" }}
             src="media/images/logo.svg"
             alt="Logo"
+            
           />
         </Link>
 
@@ -47,9 +48,8 @@ function Navbar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  onClick={() => {
-                    handleNavigate("/");
-                  }}
+                  to="/"
+                 replace
                 >
                   Home
                 </Link>
@@ -58,9 +58,8 @@ function Navbar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  onClick={() => {
-                    handleNavigate("/about");
-                  }}
+                  to="/about"
+                  replace
                 >
                   About
                 </Link>
@@ -69,9 +68,8 @@ function Navbar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  onClick={() => {
-                    handleNavigate("/products");
-                  }}
+                  to="/products"
+                  replace
                 >
                   Product
                 </Link>
@@ -80,9 +78,8 @@ function Navbar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  onClick={() => {
-                    handleNavigate("/pricing");
-                  }}
+                  to="/pricing"
+                  replace
                 >
                   Pricing
                 </Link>
@@ -91,9 +88,8 @@ function Navbar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  onClick={() => {
-                    handleNavigate("/support");
-                  }}
+                  to="/support"
+                  replace
                 >
                   Support
                 </Link>
@@ -102,9 +98,8 @@ function Navbar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  onClick={() => {
-                    handleNavigate("/signup");
-                  }}
+                  to="/signup"
+                  replace
                 >
                   Signup
                 </Link>
